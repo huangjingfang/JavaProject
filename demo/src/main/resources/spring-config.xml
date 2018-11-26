@@ -14,4 +14,25 @@
 	<context:component-scan base-package="com.h3c" />
 	<context:annotation-config/>
 	
+	<bean id="dataSource" class="org.logicalcobwebs.proxool.DataSource">
+		<property name="driver" value="${driver}"/>
+		<property name="driverUrl" value="${connection.url}" />
+		<property name="user" value="${connection.user}" />
+		<property name="password" value="${connection.password}" />
+	</bean>
+	
+	<bean id="sessionFactory" class="rg.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mappingDirectoryLocations">
+			<list>
+				<value>classpath:com/h3c/base/mappings/</value>
+			</list>
+		</property>
+		
+	</bean>
+	
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
 </beans>
