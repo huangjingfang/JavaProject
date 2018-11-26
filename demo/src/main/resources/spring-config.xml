@@ -4,21 +4,21 @@
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:context="http://www.springframework.org/schema/context"
 
-	xsi:schemaLocation=" 
-　　　　 	http://www.springframework.org/schema/beans
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd ">
+        
 	<context:component-scan base-package="com.h3c" />
 	<context:annotation-config/>
 	
-	<bean id="dataSource" class="org.logicalcobwebs.proxool.DataSource">
-		<property name="driver" value="${driver}"/>
-		<property name="driverUrl" value="${connection.url}" />
-		<property name="user" value="${connection.user}" />
-		<property name="password" value="${connection.password}" />
+	<!-- <bean id="dataSource" class="org.logicalcobwebs.proxool.ProxoolDataSource">
+		<property name="driver" value="com.mysql.jdbc.Driver"/>
+		<property name="driverUrl" value="jdbc:mysql://118.31.35.1:3306/test" />
+		<property name="user" value="kolgan" />
+		<property name="password" value="kolgan" />
 	</bean>
 	
 	<bean id="sessionFactory" class="rg.springframework.orm.hibernate5.LocalSessionFactoryBean">
@@ -33,6 +33,6 @@
 	
 	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
 		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
+	</bean> -->
 	
 </beans>
