@@ -1,5 +1,7 @@
 package com.h3c.services.dao.impl;
 
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -21,17 +23,20 @@ public class UserDao implements IUserDao{
 
 	public void save(User user) {
 		// TODO Auto-generated method stub
-		
+		Session session = sessionFactory.getCurrentSession();
+		session.save(user);
 	}
 
 	public void update(User user) {
 		// TODO Auto-generated method stub
-		
+		Session session = sessionFactory.getCurrentSession();
+		session.update(user);
 	}
 
-	public void delete(String userName) {
+	public void delete(User user) {
 		// TODO Auto-generated method stub
-		
+		Session session = sessionFactory.getCurrentSession();
+		session.delete(user);
 	}
 	
 	

@@ -19,5 +19,5 @@ public interface IUserDao {
 	 * ɾ
 	 * @param userName
 	 */
-	public void delete(String userName);
+	public void delete(User user);
 }
