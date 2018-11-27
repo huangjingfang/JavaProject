@@ -7,7 +7,7 @@ hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		<id name="id" column="Id" type="integer">
 			<generator class="native"></generator>
 		</id>
-		<property name="userName" column="UserName" type="String" />
-		<property name="password" column="Password" type="String" />
+		<property name="userName" column="UserName" type="string" />
+		<property name="password" column="Password" type="string" />
 	</class>
 </hibernate-mapping>

@@ -14,14 +14,14 @@
 	<context:component-scan base-package="com.h3c" />
 	<context:annotation-config/>
 	
-	<!-- <bean id="dataSource" class="org.logicalcobwebs.proxool.ProxoolDataSource">
+	<bean id="dataSource" class="org.logicalcobwebs.proxool.ProxoolDataSource">
 		<property name="driver" value="com.mysql.jdbc.Driver"/>
 		<property name="driverUrl" value="jdbc:mysql://118.31.35.1:3306/test" />
-		<property name="user" value="kolgan" />
-		<property name="password" value="kolgan" />
+		<property name="user" value="root" />
+		<property name="password" value="2Ge&amp;?7Cd" />
 	</bean>
 	
-	<bean id="sessionFactory" class="rg.springframework.orm.hibernate5.LocalSessionFactoryBean">
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="mappingDirectoryLocations">
 			<list>
@@ -33,6 +33,6 @@
 	
 	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
 		<property name="sessionFactory" ref="sessionFactory" />
-	</bean> -->
+	</bean>
 	
 </beans>

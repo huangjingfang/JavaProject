@@ -11,13 +11,13 @@ import com.h3c.services.dao.interfaces.IUserDao;
 
 @Repository("UserDao")
 public class UserDao implements IUserDao{
-//	@Autowired
-//	@Qualifier("sessionFactory")
-//	protected SessionFactory sessionFactory;
+	@Autowired
+	@Qualifier("sessionFactory")
+	protected SessionFactory sessionFactory;
 	
-//	@Autowired
-//	@Qualifier("hibernateTemplate")
-//	protected HibernateTemplate hibernateTemplate;
+	@Autowired
+	@Qualifier("hibernateTemplate")
+	protected HibernateTemplate hibernateTemplate;
 
 	public void save(User user) {
 		// TODO Auto-generated method stub
