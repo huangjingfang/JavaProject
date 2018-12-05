@@ -1,6 +1,5 @@
 package com.h3c.services.dao.impl;
 
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +19,15 @@ public class UserDao implements IUserDao{
 	@Autowired
 	@Qualifier("hibernateTemplate")
 	protected HibernateTemplate hibernateTemplate;
+	
+	int count = 0;
 
 	public void save(User user) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		session.save(user);
+		count++;
+		System.out.println("count:"+count);
 	}
 
 	public void update(User user) {
