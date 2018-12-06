@@ -11,7 +11,7 @@ import com.h3c.base.models.User;
 import com.h3c.services.dao.interfaces.IUserDao;
 
 @Repository("UserDao")
-public class UserDao implements IUserDao{
+public class UserDao extends EntityDao<User> implements IUserDao{
 	@Autowired
 	@Qualifier("sessionFactory")
 	protected SessionFactory sessionFactory;

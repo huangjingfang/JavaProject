@@ -2,7 +2,7 @@ package com.h3c.services.dao.interfaces;
 
 import com.h3c.base.models.User;
 
-public interface IUserDao {
+public interface IUserDao extends IEntityDao<User>{
 	/**
 	 * Ôö
 	 * @param user

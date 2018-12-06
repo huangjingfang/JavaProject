@@ -3,11 +3,11 @@
 hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"   
 	     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.h3c.base.models.UserSign" table="userSign" lazy="true">
+	<class name="com.h3c.base.models.User" table="userinfo" lazy="true">
 		<id name="id" column="Id" type="integer">
 			<generator class="native"></generator>
 		</id>
-		<property name="userId" column="UserId" type="integer" />
-		<property name="personalSign" column="PersonalSign" type="string" />
+		<property name="userName" column="UserName" type="string" />
+		<property name="password" column="Password" type="string" />
 	</class>
 </hibernate-mapping>
