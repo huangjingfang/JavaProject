@@ -20,6 +20,12 @@ public class HibernateUtils {
 		hibernateTemplate = (HibernateTemplate) applicationContext.getBean("hibernateTemplate");
 	}
 	
+	public static void setConfig(String classpathUrl) {
+		ApplicationContext applicationContext = new ClassPathXmlApplicationContext(classpathUrl);
+		sessionFactory = (SessionFactory) applicationContext.getBean("sessionFactory");
+		hibernateTemplate = (HibernateTemplate) applicationContext.getBean("hibernateTemplate");
+	}
+	
 	public static Session getSession() {
 		return sessionFactory.openSession();
 	}
