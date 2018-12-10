@@ -9,8 +9,11 @@ import java.util.Properties;
 import org.I0Itec.zkclient.ZkClient;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
@@ -27,7 +30,7 @@ import tools.elasticjob.properties.ProjectProperties;
 @Component
 public class JobDependencyResolver {
 
-	@Around("execution(* tools.elasticjob.jobs.*.execute(..))")
+//	@Around("execution(* tools.elasticjob.jobs.*.execute(..))")
 	public void resolver(ProceedingJoinPoint proceedingJoinPoint) {
 		System.out.println("AspectJ before");
 		Signature signature = proceedingJoinPoint.getSignature();
@@ -96,15 +99,19 @@ public class JobDependencyResolver {
 	    zookeeperRegistryCenter.persist("/dependency/"+name, value);
 	}
 	
-//	@Pointcut("execution(* tools.elasticjob.jobs.*.execute(..))")
-//	private void myPointCut() {
-//		
-//	}
-//	@Before("myPointCut()")
-//	public void before() {
-//		System.out.println("AspectJ before");
-//	}
+	@Pointcut("execution(* tools.elasticjob.jobs.*.execute(..))")
+	private void myPointCut() {
+		
+	}
+	@Before("myPointCut()")
+	public void before() {
+		System.out.println("AspectJ before");
+	}
 	
+	@After("myPointCut()")
+	public void after() {
+		System.out.println("AspectJ after");
+	}
 	private String getStringByMax(String shardingItem) {
 		try {
 			Integer max = Integer.parseInt(shardingItem);
@@ -137,5 +144,75 @@ public class JobDependencyResolver {
 			}
 		}
 		return true;
+	}
+	
+	public static List<String> traceDependency(Class clazz) {
+		List<String> nameList = new ArrayList<String>();
+		List<DependNode> depends = getDependency(clazz);
+		if(depends==null||depends.isEmpty()) {
+			return nameList;
+		}else {
+			for(DependNode node:depends) {
+				String name = node.getJobName();
+				Class claz = node.getJobClass();
+				
+			}
+		}
+		return null;
+	}
+	
+	public static String getDepdendStr(String path,DependNode node) {
+		String name = node.jobName;
+		Class claz = node.jobClass;
+		return null;
+	}
+	
+	public static List<DependNode> getDependency(Class clazz) {
+		try {
+			Method method = clazz.getMethod("execute", ShardingContext.class);
+			if(method == null) {
+				throw new Exception("function execute(ShardingContext sc) not exist!");
+			}
+			DependOn dependOn = method.getAnnotation(DependOn.class);
+			if(dependOn == null) {
+				return new ArrayList<JobDependencyResolver.DependNode>();
+			}else {
+				List<DependNode> list = new ArrayList<JobDependencyResolver.DependNode>();
+				String jobName = dependOn.depend();
+				String[] names = jobName.split(",");
+				ApplicationContext applicationContext = ApplicationContextHolder.getApplicationContext();
+				JobManager manager = (JobManager) applicationContext.getBean("jobManager");
+				for(String name:names) {
+					String jobClass = manager.getClass(name);
+					Class claz = Class.forName(jobClass);
+					DependNode node = new DependNode();
+					node.setJobName(name);
+					node.setJobClass(claz);
+					list.add(node);
+				}
+				return list;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	static class DependNode {
+		private String jobName;
+		private Class jobClass;
+		public String getJobName() {
+			return jobName;
+		}
+		public void setJobName(String jobName) {
+			this.jobName = jobName;
+		}
+		public Class getJobClass() {
+			return jobClass;
+		}
+		public void setJobClass(Class jobClass) {
+			this.jobClass = jobClass;
+		}
 	}
 }

@@ -25,11 +25,11 @@ public class ElasticJobMain {
 	private static final String JOB_NAMESPACE = "elastic-job-example-dataanalysis";
 	
 	private static final String EVENT_RDB_STORAGE_DRIVER = "com.mysql.jdbc.Driver";
-    private static final String EVENT_RDB_STORAGE_URL = "jdbc:mysql://192.168.125.7:3306/elastic_job_log";
+    private static final String EVENT_RDB_STORAGE_URL = "jdbc:mysql://118.31.35.1:3306/elastic_job_log";
     
-    private static final String EVENT_RDB_STORAGE_USERNAME = "soho";
+    private static final String EVENT_RDB_STORAGE_USERNAME = "root";
     
-    private static final String EVENT_RDB_STORAGE_PASSWORD = "soho";
+    private static final String EVENT_RDB_STORAGE_PASSWORD = "2Ge&?7Cd";
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

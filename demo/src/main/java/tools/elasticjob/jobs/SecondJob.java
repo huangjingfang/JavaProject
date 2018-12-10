@@ -8,7 +8,7 @@ import tools.elasticjob.annotation.JobName;
 
 public class SecondJob implements SimpleJob {
 
-	@JobName(name = "secondJob")
+	@JobName(name = "secondJob",jobClass="tools.elasticjob.jobs.SecondJob")
 	@DependOn(depend = "firstJob")
 	public void execute(ShardingContext shardingContext) {
 		// TODO Auto-generated method stub

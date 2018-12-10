@@ -10,4 +10,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface JobName {
 	public String name();
+
+	public String jobClass();
 }

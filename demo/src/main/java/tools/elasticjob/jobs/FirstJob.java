@@ -8,7 +8,7 @@ import tools.elasticjob.annotation.JobName;
 
 public class FirstJob implements SimpleJob {
 
-	@JobName(name ="firstJob")
+	@JobName(name ="firstJob",jobClass="tools.elasticjob.jobs.FirstJob")
 	public void execute(ShardingContext shardingContext) {
 		// TODO Auto-generated method stub
 		System.out.println("first-job started->> shardingContext:"+shardingContext.getShardingItem());
