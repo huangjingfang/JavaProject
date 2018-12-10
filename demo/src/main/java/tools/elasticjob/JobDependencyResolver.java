@@ -92,9 +92,8 @@ public class JobDependencyResolver {
 	    		value = value+","+shardingContext.getShardingItem();
 	    	}
 	    }
+	    System.out.println("jobName: "+name+"finished");
 	    zookeeperRegistryCenter.persist("/dependency/"+name, value);
-	        
-		System.out.println("AspectJ finished");
 	}
 	
 //	@Pointcut("execution(* tools.elasticjob.jobs.*.execute(..))")
