@@ -1,4 +1,4 @@
-package jlan.hibernate.criteria;
+package framework.hibernate.criteria;
 
 import java.util.List;
 

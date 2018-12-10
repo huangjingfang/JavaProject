@@ -42,4 +42,10 @@
     </bean>  
 	
 	<tx:annotation-driven transaction-manager="transactionManager"/> 
+	
+	<!-- <bean id="firstJob" class="tools.elasticjob.jobs.FirstJob"></bean>
+	<bean id="secondJob" class="tools.elasticjob.jobs.SecondJob"></bean>
+	
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy> -->
+	
 </beans>

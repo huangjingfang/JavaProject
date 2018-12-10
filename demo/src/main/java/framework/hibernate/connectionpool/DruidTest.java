@@ -1,4 +1,4 @@
-package jlan.hibernate.connectionpool;
+package framework.hibernate.connectionpool;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import org.hibernate.criterion.Restrictions;
 
 import com.google.gson.Gson;
 
-import jlan.hibernate.criteria.HibernateUtils;
+import framework.hibernate.criteria.HibernateUtils;
 
 public class DruidTest {
 	public static void main(String[] args) {
@@ -26,6 +26,5 @@ public class DruidTest {
 		for(Object obj:list) {
 			System.out.println(gson.toJson(obj));
 		}
-		
 	}
 }

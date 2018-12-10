@@ -6,6 +6,10 @@
 	<artifactId>demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	
+	<properties>
+        <elastic-job.version>2.1.5</elastic-job.version>
+    </properties>
+	
 	<dependencies>
 		<dependency>
             <groupId>javax.servlet</groupId>
@@ -70,6 +74,11 @@
 		    <artifactId>slf4j-api</artifactId>
 		    <version>1.7.21</version>
 		</dependency>
+		<dependency>
+	        <groupId>org.slf4j</groupId>
+	        <artifactId>slf4j-nop</artifactId>
+	        <version>1.7.21</version>
+	    </dependency>
         <dependency>
 		    <groupId>com.google.code.gson</groupId>
 		    <artifactId>gson</artifactId>
@@ -84,6 +93,40 @@
 		    <groupId>cglib</groupId>
 		    <artifactId>cglib</artifactId>
 		    <version>3.2.5</version>
+		</dependency>
+        
+        <!-- elasticjob test -->
+        <dependency>
+             <artifactId>elastic-job-common-core</artifactId>
+             <groupId>com.dangdang</groupId>
+             <version>${elastic-job.version}</version>
+        </dependency>
+        <dependency>
+             <artifactId>elastic-job-lite-core</artifactId>
+             <groupId>com.dangdang</groupId>
+             <version>${elastic-job.version}</version>
+        </dependency>
+        <dependency>
+             <artifactId>elastic-job-lite-spring</artifactId>
+             <groupId>com.dangdang</groupId>
+             <version>${elastic-job.version}</version>
+        </dependency>
+        <dependency>
+             <artifactId>elastic-job-cloud-executor</artifactId>
+             <groupId>com.dangdang</groupId>
+             <version>${elastic-job.version}</version>
+        </dependency>
+        
+        <dependency>
+		    <groupId>com.101tec</groupId>
+		    <artifactId>zkclient</artifactId>
+		    <version>0.10</version>
+		</dependency>
+        
+        <dependency>
+		    <groupId>org.aspectj</groupId>
+		    <artifactId>aspectjweaver</artifactId>
+		    <version>1.8.13</version>
 		</dependency>
         
 	</dependencies>
