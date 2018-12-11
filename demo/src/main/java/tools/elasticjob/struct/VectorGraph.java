@@ -1,6 +1,8 @@
 package tools.elasticjob.struct;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class VectorGraph<T> {
 	transient int size = 0;
@@ -13,6 +15,8 @@ public class VectorGraph<T> {
 	private Node<T>[] last;
 	transient int lastSize;
 	
+	List<Node<T>> nodes;
+	
 	private static final int DEFAULT_ARRAY_SIZE = 4;
 	
 	@SuppressWarnings("unchecked")
@@ -20,6 +24,7 @@ public class VectorGraph<T> {
 		// TODO Auto-generated constructor stub
 		first = new Node[DEFAULT_ARRAY_SIZE];
 		last = new Node[DEFAULT_ARRAY_SIZE];
+		nodes = new ArrayList<VectorGraph.Node<T>>();
 		firstSize = 0;
 		lastSize = 0;
 	}
@@ -29,6 +34,7 @@ public class VectorGraph<T> {
 		this();
 		first[0] = node;
 		last[0] = node;
+		nodes.add(node);
 		firstSize++;
 		lastSize++;
 	}
@@ -87,6 +93,34 @@ public class VectorGraph<T> {
 	}
 	
 	public boolean contains(Node<T> node) {
+		if(node==null) {
+			return false;
+		}
+		Stack<Node<T>> stack = new Stack<VectorGraph.Node<T>>();
+		for(int i=0;i<firstSize;i++) {
+			Node<T> n = first[i];
+			if(n.equals(node)) {
+				return true;
+			}else {
+				stack.push(n);
+			}
+		}
+		
+		//使用了此方法说明图为又向无环图
+		while(!stack.isEmpty()) {
+			Node<T> top = stack.pop();
+			if(top.nextSize==0) {
+				continue;
+			}
+			Node<T>[] child = top.next;
+			for(int i=0;i<top.nextSize;i++) {
+				if(child[i].equals(node)) {
+					return true;
+				}else {
+					stack.push(child[i]);
+				}
+			}
+		}
 		return false;
 	}
 	private void addLast(Node<T> node) {
@@ -120,6 +154,8 @@ public class VectorGraph<T> {
 			first = newFirst;
 		}
 	}
+	
+	/************************************静态内部类*******************************************/
 	
 	static class Node<T>{
 		T value;
@@ -237,18 +273,37 @@ public class VectorGraph<T> {
 			}
 			return builder.substring(0, builder.length()-1);
 		}
+		
+		@Override
+		public boolean equals(Object obj) {
+			// TODO Auto-generated method stub
+			if(obj==null) {
+				return false;
+			}
+			if(obj instanceof Node) {
+				 @SuppressWarnings("rawtypes")
+				Object val = ((Node)obj).value;
+				if(val.getClass().equals(value.getClass())) {
+					return val.equals(value);
+				}
+			}
+			return false;
+		}
 	}
 	public static void main(String[] args) {
+		VectorGraph<String> graph = new VectorGraph<String>();
+				
 		Node<String> node0 = new Node<String>("node0");
+		graph.addNode(node0);
 		Node<String> node1 = new Node<String>("node1",node0);
 		Node<String> node2 = new Node<String>("node2",node0);
 		Node<String> node3 = new Node<String>("node3",node0);
 		Node<String> node4 = new Node<String>("node4",node0);
 		Node<String> node5 = new Node<String>("node5",node0);
-		Node<String> node6 = new Node<String>("node6",node2);
+		Node<String> node6 = new Node<String>("node7",node2);
 		node6.addFather(node3);
 		Node<String> node7 = new Node<String>("node7",node5);
 		node7.addFather(node6);	
-		System.out.println(node7.toString());
+		System.out.println(node7.equals(node6));
 	}
 }

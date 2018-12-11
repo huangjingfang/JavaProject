@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 import org.I0Itec.zkclient.ZkClient;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -56,23 +57,20 @@ public class JobDependencyResolver {
 		
 		ApplicationContext applicationContext = ApplicationContextHolder.getApplicationContext();
 	    ZookeeperRegistryCenter zookeeperRegistryCenter = (ZookeeperRegistryCenter) applicationContext.getBean("regCenter");
-	
+	    JobManager manager = (JobManager) applicationContext.getBean("jobManager");
 	    JobName jobName = m.getAnnotation(JobName.class);
 	    String name = jobName.name();
-	    System.out.println("JobName:"+name);
-	    DependOn dependOn = m.getAnnotation(DependOn.class);
-	    if(dependOn!=null) {
-	    	String dependency = dependOn.depend();
-//	    	System.out.println("JobName:"+name+"; depend on:"+dependency);
-	    	String[] dependencies = dependency.split(",",-1);
-	    	for(String dep:dependencies) {
-	    		String value = zookeeperRegistryCenter.get("/dependency/"+dep);
+	    Set<String> depends = manager.getGraph().traceParent(name);
+	    
+	    if(!depends.isEmpty()) {
+	    	for(String str:depends) {
+	    		String value = zookeeperRegistryCenter.get("/dependency/"+str);
 	    		String targetValue = ProjectProperties.get("simple.shardingTotalCount");
 	    		String targetV = getStringByMax(targetValue);
 	    		while(!equalSharding(value, targetV)) {
 	    			try {
 						Thread.sleep(1000);
-						value = zookeeperRegistryCenter.get("/dependency/"+dep);
+						value = zookeeperRegistryCenter.get("/dependency/"+str);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
