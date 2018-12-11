@@ -48,4 +48,14 @@
 	</aop:config> -->
 	<bean id="springContextHolder" class="framework.spring.ApplicationContextHolder" lazy-init="false"/>
 	<bean id="jobProperties" class="tools.elasticjob.properties.ProjectProperties" lazy-init="false"></bean>
+	
+	<bean id="jobManager" class="tools.elasticjob.JobManager">
+		<property name="nameClassMap">
+			<map>
+				<entry key="${simple.id}" value="${simple.class}"/>
+				<entry key="${simple.idsec}" value="${simple.classsec}"/>
+			</map>
+		</property>
+	</bean>
+	
 </beans>
