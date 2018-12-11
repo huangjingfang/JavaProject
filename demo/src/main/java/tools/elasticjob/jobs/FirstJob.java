@@ -3,12 +3,14 @@ package tools.elasticjob.jobs;
 import com.dangdang.ddframe.job.api.ShardingContext;
 import com.dangdang.ddframe.job.api.simple.SimpleJob;
 
+import tools.elasticjob.annotation.DependOn;
 import tools.elasticjob.annotation.JobName;
 
 
 public class FirstJob implements SimpleJob {
 
 	@JobName(name ="firstJob",jobClass="tools.elasticjob.jobs.FirstJob")
+	@DependOn(depend="root")
 	public void execute(ShardingContext shardingContext) {
 		// TODO Auto-generated method stub
 		System.out.println("first-job started->> shardingContext:"+shardingContext.getShardingItem());

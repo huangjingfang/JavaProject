@@ -31,9 +31,9 @@ import tools.elasticjob.properties.ProjectProperties;
 @Component
 public class JobDependencyResolver {
 
-//	@Around("execution(* tools.elasticjob.jobs.*.execute(..))")
+	@Around("execution(* tools.elasticjob.jobs.*.execute(..))")
 	public void resolver(ProceedingJoinPoint proceedingJoinPoint) {
-		System.out.println("AspectJ before");
+//		System.out.println("AspectJ before");
 		Signature signature = proceedingJoinPoint.getSignature();
 		MethodSignature methodSignature = null;
 		if(!(signature instanceof MethodSignature)) {
@@ -97,7 +97,7 @@ public class JobDependencyResolver {
 	    zookeeperRegistryCenter.persist("/dependency/"+name, value);
 	}
 	
-	@Pointcut("execution(* tools.elasticjob.jobs.*.execute(..))")
+/*	@Pointcut("execution(* tools.elasticjob.jobs.*.execute(..))")
 	private void myPointCut() {
 		
 	}
@@ -109,7 +109,7 @@ public class JobDependencyResolver {
 	@After("myPointCut()")
 	public void after() {
 		System.out.println("AspectJ after");
-	}
+	}*/
 	private String getStringByMax(String shardingItem) {
 		try {
 			Integer max = Integer.parseInt(shardingItem);
@@ -135,7 +135,6 @@ public class JobDependencyResolver {
 				return false;
 			}
 		}
-		
 		for(String str:list1) {
 			if(!list0.contains(str)) {
 				return false;
