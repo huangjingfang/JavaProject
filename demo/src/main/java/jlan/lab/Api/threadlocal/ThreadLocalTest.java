@@ -1,4 +1,4 @@
-package jlan.lab.Api;
+package jlan.lab.Api.threadlocal;
 
 /**
  * 该例子非本人设计，来自网络http://www.cnblogs.com/dolphin0520/p/3920407.html

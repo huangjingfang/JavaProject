@@ -65,14 +65,21 @@ public class JobDependencyResolver {
 	    if(!depends.isEmpty()) {
 	    	for(String str:depends) {
 	    		String value = zookeeperRegistryCenter.get("/dependency/"+str);
-	    		String targetValue = ProjectProperties.get("simple.shardingTotalCount");
+	    		String targetValue;
+	    		if(str.equals("root")) {
+	    			targetValue = "1";
+	    		}else {
+	    			targetValue = ProjectProperties.get("simple.shardingTotalCount");
+	    		}
+	    		System.out.println("job:"+name+" is waiting for job -->"+ str+" to finish");
 	    		String targetV = getStringByMax(targetValue);
-	    		while(!equalSharding(value, targetV)) {
+	    		while(value==null||!equalSharding(value, targetV)) {
 	    			try {
 						Thread.sleep(1000);
 						value = zookeeperRegistryCenter.get("/dependency/"+str);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
+						System.out.println("Exception occor:"+e.getMessage());
 						e.printStackTrace();
 					}
 	    		}
@@ -85,16 +92,19 @@ public class JobDependencyResolver {
 			e.printStackTrace();
 		}
 	    ShardingContext shardingContext = (ShardingContext) proceedingJoinPoint.getArgs()[0];
-	    String value = zookeeperRegistryCenter.get("/dependency/"+name);
-	    if(value == null) {
+	    String oldvalue = zookeeperRegistryCenter.get("/dependency/"+name);
+	    String value;
+	    if(oldvalue == null) {
 	    	value = ""+shardingContext.getShardingItem();
 	    }else {
-	    	if(!value.contains(shardingContext.getShardingItem()+"")) {
-	    		value = value+","+shardingContext.getShardingItem();
+	    	if(!oldvalue.contains(shardingContext.getShardingItem()+"")) {
+	    		value = oldvalue+","+shardingContext.getShardingItem();
+	    	}else {
+	    		value = oldvalue;
 	    	}
 	    }
-	    System.out.println("jobName: "+name+"finished");
 	    zookeeperRegistryCenter.persist("/dependency/"+name, value);
+	    System.out.println("zookeeper persist:"+"/dependency/"+name+"->original value:"+value+"\tnew value:"+value);
 	}
 	
 /*	@Pointcut("execution(* tools.elasticjob.jobs.*.execute(..))")

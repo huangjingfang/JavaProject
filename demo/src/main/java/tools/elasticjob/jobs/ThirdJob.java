@@ -12,7 +12,7 @@ public class ThirdJob implements SimpleJob {
 	@DependOn(depend = "firstJob,secondJob")
 	public void execute(ShardingContext shardingContext) {
 		// TODO Auto-generated method stub
-		System.out.println("Third Job! "+shardingContext.getShardingItem());
+		System.out.println("third-job started->> shardingContext:"+shardingContext.getShardingItem());
 	}
 
 }

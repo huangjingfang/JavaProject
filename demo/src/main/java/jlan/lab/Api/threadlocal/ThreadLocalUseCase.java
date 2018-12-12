@@ -1,4 +1,4 @@
-package jlan.lab.Api;
+package jlan.lab.Api.threadlocal;
 
 /**
  * 该例子主要为了说明ThreadLocal的作用
