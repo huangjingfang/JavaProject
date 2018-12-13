@@ -1,0 +1,92 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="vue.js"></script>
+  </head>
+    <script type="text/javascript">
+      // Vue.component("todo-item",{
+      //   template:'<li>This is a todo item</li>'
+      // })
+      Vue.component('todo-item', {
+        template: '<li>这是个待办项</li>'
+      })
+    </script>
+  <body>
+    <div id="app">
+        <p>{{ message }}</p>
+    </div>
+    <div id="app2">
+      <span v-bind:title="message">鼠标悬停几秒钟查看此处动态绑定的提示信息！</span>
+    </div>
+    <div id="app3">
+      <p v-if="seen">Now you see me</p>
+    </div>
+    <div id="app4">
+      <ol>
+        <li v-for="todo in todos">{{todo.text}}</li>
+      </ol>
+    </div>
+    <div id="app5">
+      <p>{{message}}</p>
+      <button type="button" name="button" v-on:click="reverseMessage">逆转消息</button>
+    </div>
+    <div id="app6">
+      <p>{{message}}</p>
+      <input type="text" v-model="message">
+    </div>
+    <div id="component">
+      <ol>
+        <todo-item></todo-item>
+      </ol>
+    </div>
+
+  </body>
+  <script type="text/javascript">
+    var app = new Vue({
+      "el":"#app",
+      "data":{
+        message:"Hello vue.js"
+      }
+    });
+    var app2 = new Vue({
+      "el":"#app2",
+      "data":{
+        message:'页面加载于 ' + new Date().toLocaleString()
+      }
+    })
+    var app3 = new Vue({
+      "el":"#app3",
+      "data":{
+        seen:true
+      }
+    })
+    var app4 = new Vue({
+      "el":"#app4",
+      "data":{
+        todos:[
+          {text:"学习javascript"},
+          {text:"学习vue"},
+          {text:"整个世界"}
+        ]
+      }
+    })
+    var app5 = new Vue({
+      "el":"#app5",
+      "data":{
+        message:"Hello Yanyan"
+      },
+      "methods":{
+        reverseMessage:function(){
+          this.message = this.message.split('').reverse().join('')
+        }
+      }
+    })
+    var app6 = new Vue({
+      el:"#app6",
+      data:{
+        message:"Model That I dont quite understand"
+      }
+    })
+
+  </script>
+</html>
