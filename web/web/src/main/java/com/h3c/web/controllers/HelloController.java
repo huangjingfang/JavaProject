@@ -12,10 +12,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping(value="/hello")
 public class HelloController {
-	
+	int a = 0;
 	@ResponseBody
 	@RequestMapping(value="/sayHello",method= {RequestMethod.GET})
 	public String sayHello(HttpServletRequest request,HttpServletResponse response,Model model) {
-		return "hello SpringMVC";
+		a++;
+		return "hello SpringMVC:"+a;
 	}
 }

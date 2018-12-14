@@ -27,9 +27,9 @@ public class ElasticJobMain {
 	private static final String EVENT_RDB_STORAGE_DRIVER = "com.mysql.jdbc.Driver";
     private static final String EVENT_RDB_STORAGE_URL = "jdbc:mysql://118.31.35.1:3306/elastic_job_log";
     
-    private static final String EVENT_RDB_STORAGE_USERNAME = "root";
+    private static final String EVENT_RDB_STORAGE_USERNAME = "apprentice";
     
-    private static final String EVENT_RDB_STORAGE_PASSWORD = "2Ge&?7Cd";
+    private static final String EVENT_RDB_STORAGE_PASSWORD = "Master2.Y";
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
