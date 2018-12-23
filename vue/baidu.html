@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>截至2018年到过的省市</title>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=e157mRQCpGRcAIH8kG0TFGiaHYO8tioE"></script>
+    <script src="./echarts.min.js"></script>
+    <script src="./bmap.js"></script>
+    <style type="text/css">
+        html{height:100%}
+        body{height:100%;margin:0px;padding:0px}
+        #container{height:100%}
+    </style>
+  </head>
+  <body>
+    <div id="container">
+
+    </div>
+  </body>
+    <script type="text/javascript">
+      var map = new BMap.Map("container");          // 创建地图实例
+      // var point = new BMap.Point(108.953098, 36.2778);  // 创建点坐标
+      var point = new BMap.Point(113.649644,34.75661);
+      // map.centerAndZoom(point, 5);
+      map.centerAndZoom(point, 6);
+      map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+
+      var provinces = ["北京市","山东省","江苏省","浙江省","上海市","江西省","陕西省","湖北省"]
+      var passby = ["天津市","河北省","安徽省","河南省"]
+
+      var bound = new BMap.Boundary();
+      for(var str of provinces){
+        bound.get(str,function(rs){
+          var count = rs.boundaries.length; //行政区域的点有多少个
+          for(var i = 0; i < count; i++){
+              var ply = new BMap.Polygon(rs.boundaries[i], {
+                  strokeWeight: 1,
+                  strokeColor: "#8B2500",
+                  fillColor:"#CD0000"
+             }); //建立多边形覆盖物
+             map.addOverlay(ply);  //添加覆盖物
+          }
+        });
+      }
+
+      for(var str of passby){
+        bound.get(str,function(rs){
+          console.log(rs);
+          var count = rs.boundaries.length; //行政区域的点有多少个
+          for(var i = 0; i < count; i++){
+              var ply = new BMap.Polygon(rs.boundaries[i], {
+                  strokeWeight: 1,
+                  strokeColor: "#1874CD",
+                  fillColor:"#104E8B"
+             }); //建立多边形覆盖物
+             map.addOverlay(ply);  //添加覆盖物
+          }
+        });
+      }
+
+      option = {
+        // 加载 bmap 组件
+        bmap: {
+            // 百度地图中心经纬度
+            center: [108.953098, 36.2778],
+            // 百度地图缩放
+            zoom: 5,
+            // 是否开启拖拽缩放，可以只设置 'scale' 或者 'move'
+            roam: true,
+            // 百度地图的自定义样式，见 http://developer.baidu.com/map/jsdevelop-11.htm
+            mapStyle: {}
+        },
+        series: [{
+            type: 'scatter',
+            // 使用百度地图坐标系
+            coordinateSystem: 'bmap',
+            // 数据格式跟在 geo 坐标系上一样，每一项都是 [经度，纬度，数值大小，其它维度...]
+            data: [ [120, 30, 1] ]
+        }]
+    }
+
+    </script>
+</html>
