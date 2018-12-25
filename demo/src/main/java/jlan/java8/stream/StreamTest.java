@@ -15,6 +15,9 @@ public class StreamTest {
 		Stream<String> stream = list.stream();
 		stream.forEach((x)->System.out.println(x.substring(1)));
 		
+		//构建Stream
+		Stream<String> stm = Stream.of("a","b","c");
+		stm.forEach(System.out::println);
 	}
 
 }
