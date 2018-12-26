@@ -27,6 +27,7 @@
 
       var provinces = ["北京市","山东省","江苏省","浙江省","上海市","江西省","陕西省","湖北省"]
       var passby = ["天津市","河北省","安徽省","河南省"]
+      var want = ["广东省","四川省","重庆市"]
 
       var bound = new BMap.Boundary();
       for(var str of provinces){
@@ -52,6 +53,21 @@
                   strokeWeight: 1,
                   strokeColor: "#1874CD",
                   fillColor:"#104E8B"
+             }); //建立多边形覆盖物
+             map.addOverlay(ply);  //添加覆盖物
+          }
+        });
+      }
+
+      for(var str of want){
+        bound.get(str,function(rs){
+          console.log(rs);
+          var count = rs.boundaries.length; //行政区域的点有多少个
+          for(var i = 0; i < count; i++){
+              var ply = new BMap.Polygon(rs.boundaries[i], {
+                  strokeWeight: 1,
+                  strokeColor: "#1874CD",
+                  fillColor:"#00FF7F"
              }); //建立多边形覆盖物
              map.addOverlay(ply);  //添加覆盖物
           }
