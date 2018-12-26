@@ -1,7 +1,9 @@
 package jlan.java8.stream;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class StreamTest {
@@ -18,6 +20,10 @@ public class StreamTest {
 		//构建Stream
 		Stream<String> stm = Stream.of("a","b","c");
 		stm.forEach(System.out::println);
+		
+		List<String> word = Arrays.asList("a","b","c");
+		List<String> ls = word.stream().map(String::toUpperCase).collect(Collectors.toList());
+		ls.forEach(System.out::println);
 	}
 
 }
