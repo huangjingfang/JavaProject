@@ -2,13 +2,9 @@ package tools.easyexcel;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.OutputStream;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,55 +13,110 @@ import com.alibaba.excel.metadata.BaseRowModel;
 import com.alibaba.excel.metadata.Sheet;
 import com.alibaba.excel.support.ExcelTypeEnum;
 
-public class EasyExcelUtil<T extends BaseRowModel> {
+public class EasyExcelUtil {
+	private static final int MAX_ROW_SIZE = 1000000;
 	private ExcelWriter writer;
 	private int pageIndex;
 	private int rowIndex;
 	private String sheetName;
 	private Sheet currentSheet;
-	private Class<T> paramClass;
+	private Class<? extends BaseRowModel> exportClass;
 	
-	@SuppressWarnings("unchecked")
 	public EasyExcelUtil() {
 		// TODO Auto-generated constructor stub
 		pageIndex = 0;
 		rowIndex = 0;
-		Type genericSuperClass = this.getClass().getGenericSuperclass();
-		paramClass = (Class<T>) ((ParameterizedType)genericSuperClass).getActualTypeArguments()[1];
 	}
+	
 	/**
 	 * 后台导出接口，后台分批从数据库中取数据，然后导入Excel，成功之后将数据扔到OSS上，并把OSS的地址返回给前台，前台重定向到OSS地址来下载Excel
+	 * 
+	 * 无数据限制，内存消耗极低，推荐使用该方式
 	 * @param writer
 	 * @throws Exception 
 	 */
-	public void export(List<String> list) throws Exception {
+	public void export(List<? extends BaseRowModel> list) throws Exception {
 		if(writer==null) {
 			throw new Exception("未配置输出流！");
 		}
 		if(sheetName == null) {
 			throw new Exception("未配置表单名字！");
 		}
+		if(exportClass == null) {
+			throw new Exception("未配置导出类");
+		}
+		
 		if(currentSheet == null) {
-			currentSheet = new Sheet(pageIndex, 0, paramClass);
+			currentSheet = new Sheet(pageIndex, 0, exportClass);
+			currentSheet.setSheetName(sheetName);
+		}
+		int size = list.size();
+		if(rowIndex+size<=MAX_ROW_SIZE) {
+			writer.write(list, currentSheet);
+			rowIndex += size;
+		}else {
+			int thisPageSize = MAX_ROW_SIZE - rowIndex;
+			List<? extends BaseRowModel> thisPage = list.subList(0, thisPageSize);
+			writer.write(thisPage, currentSheet);
+			pageIndex++;
+			currentSheet = new Sheet(pageIndex, 0, exportClass);
+			currentSheet.setSheetName(sheetName+"("+pageIndex+")");
+			rowIndex = 0;
+			List<? extends BaseRowModel> nextPage = list.subList(thisPageSize, list.size());
+			export(nextPage);
 		}
 	}
 	
-	public EasyExcelUtil<T> setOutPutStream(OutputStream out) {
+	public void addSheet(String sheetName,List<? extends BaseRowModel> data,Class<? extends BaseRowModel> clazz,int sheetIndex) {
+		Sheet sheet = new Sheet(sheetIndex, 0, clazz);
+		sheet.setSheetName(sheetName);
+		writer.write(data, sheet);
+		pageIndex++;
+	}
+	
+	public void finish() {
+		if(writer==null) {
+			return;
+		}
+		writer.finish();
+	}
+	public EasyExcelUtil setOutPutStream(OutputStream out) {
 		writer = new ExcelWriter(out, ExcelTypeEnum.XLSX);
 		return this;
 	}
 	
-	public EasyExcelUtil<T> setSheetName(String sheetName){
+	public EasyExcelUtil setSheetName(String sheetName){
 		this.sheetName = sheetName;
 		return this;
 	}
 	
-	public static void main(String[] args) throws IOException {
-		EasyExcelUtil<Gwrelation> util = new EasyExcelUtil<Gwrelation>();
-		System.out.println(util.paramClass.getName());
+	public EasyExcelUtil setExportName(Class<? extends BaseRowModel> clazz) {
+		exportClass = clazz;
+		return this;
 	}
 	
-	private static void test() throws Exception {
+	public static void main(String[] args) throws Exception {
+		EasyExcelUtil util = new EasyExcelUtil();
+		OutputStream out = new FileOutputStream(new File("C:\\Users\\h15039.H3C\\Desktop\\exportResultNew1.xlsx"));
+		util.setOutPutStream(out).setExportName(Gwrelation.class).setSheetName("地市信息");
+		BufferedReader reader = new BufferedReader(new FileReader(new File("C:\\Users\\h15039.H3C\\Desktop\\result.txt")));
+		List<Gwrelation> list = new ArrayList<Gwrelation>();
+		util.addSheet("begin", new ArrayList<Model>(), Model.class, 0);
+		while(reader.ready()) {
+			String line = reader.readLine();
+			Gwrelation gwrelation = new Gwrelation(line);
+			list.add(gwrelation);
+			if(list.size()==8000) {
+				util.export(list);
+				list.clear();
+				System.out.println(util.rowIndex);
+			}
+		}
+		reader.close();
+		util.finish();
+	}
+	
+	public static void test() throws Exception {
 		OutputStream out = new FileOutputStream(new File("C:\\Users\\h15039.H3C\\Desktop\\exportResult.xlsx"));
 		String sheetName = "地市信息";
 		BufferedReader reader = new BufferedReader(new FileReader(new File("C:\\Users\\h15039.H3C\\Desktop\\result.txt")));
@@ -99,7 +150,7 @@ public class EasyExcelUtil<T extends BaseRowModel> {
 		if(list.size()>1048576) {
 			throw new Exception("数据量大于excel最大行数1048576！");
 		}
-		ExcelWriter writer = new ExcelWriter(out, ExcelTypeEnum.XLSX);
+		ExcelWriter writer = new ExcelWriter(out, ExcelTypeEnum.XLSX); 
 		Sheet sheet1 = new Sheet(1, 0,clazz);
 		sheet1.setSheetName(sheetName);
 		writer.write(list, sheet1);
