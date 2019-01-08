@@ -107,7 +107,7 @@ public class EasyExcelTest {
 				out.close();
 			} catch (IOException e) {
 				e.printStackTrace();
-			}
+			}   
 		}
 	}
 	
