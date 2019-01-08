@@ -6,7 +6,10 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import org.apache.poi.xssf.streaming.SXSSFFormulaEvaluator.SheetsFlushedException;
 
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.metadata.BaseRowModel;
@@ -26,6 +29,25 @@ public class EasyExcelUtil {
 		// TODO Auto-generated constructor stub
 		pageIndex = 0;
 		rowIndex = 0;
+	}
+	
+	/**
+	 * 自定义表头，此方法未对过大长度的content进行适配。如果用此方法导出大量content内容，请适配该方法
+	 * @param sheetName
+	 * @param header
+	 * @param content
+	 * @throws Exception
+	 */
+	public void export(String sheetName,List<String> header,List<List<String>> content) throws Exception {
+		if(writer==null) {
+			throw new Exception("未配置输出流！");
+		}
+		Sheet sheet = new Sheet(pageIndex);
+		sheet.setSheetName(sheetName);
+		sheet.setHead(adapt(header));
+		
+		writer.write0(content, sheet);
+		pageIndex++;
 	}
 	
 	/**
@@ -177,5 +199,14 @@ public class EasyExcelUtil {
 			writer.write(sublist, sheet);
 		}
 		writer.finish();
+	}
+	
+	
+	private List<List<String>> adapt(List<String> list){
+		List<List<String>> data = new ArrayList<>();
+		for(String str:list) {
+			data.add(Arrays.asList(str));
+		}
+		return data;
 	}
 }

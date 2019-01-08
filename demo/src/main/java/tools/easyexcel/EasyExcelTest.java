@@ -29,8 +29,33 @@ public class EasyExcelTest {
 	private static final String POIPATH = "C:\\Users\\h15039.H3C\\Desktop\\exportpoi.xlsx";
 	public static void main(String[] args) throws FileNotFoundException, InterruptedException {
 //		easyExcelTest();
-		poiTest();
-		Thread.sleep(1000*60*10);
+//		poiTest();
+//		Thread.sleep(1000*60*10);
+		
+		OutputStream out = new FileOutputStream(new File(PATH));
+		try {
+			ExcelWriter writer = new ExcelWriter(out, ExcelTypeEnum.XLSX);
+			// 写第一个sheet, sheet1 数据全是List<String> 无模型映射关系
+			Sheet sheet = new Sheet(1);
+			List<List<String>> list = new ArrayList<>();
+			list.add(Arrays.asList("城市名"));
+			list.add(Arrays.asList("国家"));
+			list.add(Arrays.asList("省份"));
+			list.add(Arrays.asList("人口"));
+			
+			sheet.setHead(list);
+			sheet.setSheetName("第一个sheet");
+			writer.write0(getStrings(), sheet);
+			writer.finish();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				out.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	private static void poiTest() throws FileNotFoundException {
@@ -94,4 +119,12 @@ public class EasyExcelTest {
 		return model;
 	}
 	
+	private static List<List<String>> getStrings(){
+		List<List<String>> data = new ArrayList<>();
+		for(int i=0;i<100;i++) {
+			List<String> line = Arrays.asList("杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州","中国","浙江","900万");
+			data.add(line);
+		}
+		return data;
+ 	}
 }
