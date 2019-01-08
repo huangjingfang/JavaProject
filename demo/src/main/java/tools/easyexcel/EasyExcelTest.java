@@ -122,7 +122,7 @@ public class EasyExcelTest {
 	private static List<List<String>> getStrings(){
 		List<List<String>> data = new ArrayList<>();
 		for(int i=0;i<100;i++) {
-			List<String> line = Arrays.asList("杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州杭州","中国","浙江","900万");
+			List<String> line = Arrays.asList("杭州","中国","浙江","900万");
 			data.add(line);
 		}
 		return data;

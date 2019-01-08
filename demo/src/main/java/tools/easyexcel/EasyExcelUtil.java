@@ -14,6 +14,7 @@ import org.apache.poi.xssf.streaming.SXSSFFormulaEvaluator.SheetsFlushedExceptio
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.metadata.BaseRowModel;
 import com.alibaba.excel.metadata.Sheet;
+import com.alibaba.excel.metadata.TableStyle;
 import com.alibaba.excel.support.ExcelTypeEnum;
 
 public class EasyExcelUtil {
