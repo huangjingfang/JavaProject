@@ -17,11 +17,19 @@
 	<context:component-scan base-package="com.h3c" />
 	<context:annotation-config/>
 	
-	<bean id="dataSource" class="org.logicalcobwebs.proxool.ProxoolDataSource">
+	<!-- 云上数据 -->
+	<!-- <bean id="dataSource" class="org.logicalcobwebs.proxool.ProxoolDataSource">
 		<property name="driver" value="com.mysql.jdbc.Driver"/>
 		<property name="driverUrl" value="jdbc:mysql://118.31.35.1:3306/test" />
 		<property name="user" value="apprentice" />
 		<property name="password" value="Master2.Y" />
+	</bean> -->
+	<!-- 本地数据 -->
+	<bean id="dataSource" class="org.logicalcobwebs.proxool.ProxoolDataSource">
+		<property name="driver" value="com.mysql.jdbc.Driver"/>
+		<property name="driverUrl" value="jdbc:mysql://192.168.42.93:3306/test" />
+		<property name="user" value="soho" />
+		<property name="password" value="soho" />
 	</bean>
 	
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">

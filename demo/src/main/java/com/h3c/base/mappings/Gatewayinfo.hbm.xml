@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE 
+hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"   
+	     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.h3c.base.models.Gatewayinfo" table="gwrelation" lazy="true">
+		<id name="id" column="Id" type="integer">
+			<generator class="native"></generator>
+		</id>
+		<property name="gwSn" column="GwSn" type="string" />
+		<property name="province" column="Province" type="string" />
+		<property name="city" column="City" type="string" />
+		<property name="county" column="County" type="string" />
+		<property name="onlineTime" column="OnlineTime" type="calendar" />
+		<property name="productName" column="ProductName" type="string" />
+		<property name="ip" column="IP" type="string" />
+		<property name="carrier" column="Carrier" type="string" />
+	</class>
+</hibernate-mapping>
