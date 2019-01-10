@@ -3,6 +3,8 @@ package com.h3c.base.models;
 import java.io.Serializable;
 import java.util.Calendar;
 
+import com.google.gson.Gson;
+
 public class Gatewayinfo implements Serializable{
 	/**
 	 * 
@@ -70,5 +72,11 @@ public class Gatewayinfo implements Serializable{
 	}
 	public void setCarrier(String carrier) {
 		this.carrier = carrier;
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return new Gson().toJson(this);
 	}
 }

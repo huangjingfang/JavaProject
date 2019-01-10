@@ -1,7 +1,5 @@
 package jlan.java8.stream.model;
 
-import com.google.gson.Gson;
-
 public class Course {
 	private int courseID;
 	private String studentName;
@@ -28,6 +26,6 @@ public class Course {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return new Gson().toJson(this);
+		return studentName+"\t"+courseID+"\t"+grade;
 	}
 }

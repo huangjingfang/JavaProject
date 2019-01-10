@@ -25,9 +25,13 @@ public class CourseProcessor {
 				grade = prand.next();
 			}
 			course.setGrade(grade);
+			list.add(course);
 		}
 		
-		list.stream().filter(t->t.getGrade()>80).forEach(System.out::println);
+		list.stream()
+			.filter(t->t.getGrade()>90).sorted((x,y) -> Integer.compareUnsigned(y.getGrade(), x.getGrade()))
+			.forEach(System.out::println);
+		
 	}
 
 }
