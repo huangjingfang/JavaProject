@@ -17,6 +17,7 @@
    		http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 	<context:annotation-config />
 	<context:component-scan base-package="com.h3c.web.controllers"></context:component-scan>
+	<mvc:annotation-driven />
 	
 	<!-- <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" /> -->
 	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>

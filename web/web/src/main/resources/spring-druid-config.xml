@@ -55,4 +55,5 @@
 	<tx:annotation-driven transaction-manager="transactionManager"/> 
 	
 	<bean id="getSpringBeanUtil" class="com.h3c.service.base.utils.GetSpringBeanUtils"></bean>
+	<bean id="initData" class="com.h3c.web.system.ProjectInit"></bean>
 </beans>
