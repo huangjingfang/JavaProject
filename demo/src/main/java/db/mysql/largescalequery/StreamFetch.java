@@ -21,7 +21,28 @@ public class StreamFetch {
 		Query<Object> query = session.createQuery("select id,gwSn,province,city,county,onlineTime,productName,ip,carrier from Gatewayinfo");
 		//select Id,gwSn,Province,City,County,OnlinTime,ProductName,IP,Carrier from gwrelation
 		
-		/*query.scroll(ScrollMode.FORWARD_ONLY);
+		scallableResultNew(query, session);
+//		parallelStream(query);
+//		list(query);
+//		scallableResult(query);
+		
+		session.close();
+		sessionFactory.close();
+	}
+
+	public static void parallelStream(Query<Object> query) {
+		query.stream().parallel().forEach(StreamFetch::print);
+	}
+	
+	public static void list(Query<Object> query) {
+		List<Object> list = query.list();
+		for(Object obj:list) {
+			print(obj);
+		}
+	}
+	
+	public static void scallableResult(Query<Object> query) {
+		query.scroll(ScrollMode.FORWARD_ONLY);
 		ScrollableResults results = query.scroll();
 		while(results.next()) {
 			String sn = results.getString(1);
@@ -29,16 +50,22 @@ public class StreamFetch {
 			String city = results.getString(3);
 			String county = results.getString(4);
 			System.out.println(sn+"\t"+province+"\t"+city+"\t"+county);
-		}*/
-//		query.stream().parallel().forEach(StreamFetch::print);
-		List<Object> list = query.list();
-		for(Object obj:list) {
-			print(obj);
 		}
-		session.close();
-		sessionFactory.close();
 	}
-
+	
+	public static void scallableResultNew(Query<Object> query,Session session) {
+		query.scroll(ScrollMode.FORWARD_ONLY);
+		query.setFetchSize(1000).setCacheable(false);
+		
+		ScrollableResults results = query.scroll();
+		while(results.next()) {
+			String sn = results.getString(1);
+			String province = results.getString(2);
+			String city = results.getString(3);
+			String county = results.getString(4);
+			System.out.println(sn+"\t"+province+"\t"+city+"\t"+county);
+		}
+	}
 	
 	public static void log(Object obj) {
 		Object[] objs = (Object[]) obj;
