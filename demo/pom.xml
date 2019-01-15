@@ -170,6 +170,10 @@
 		    <artifactId>ECharts</artifactId>
 		    <version>3.0.0.6</version>
 		</dependency>
-
+		<dependency>
+		  <groupId>com.rabbitmq</groupId>
+		  <artifactId>amqp-client</artifactId>
+		  <version>5.5.2</version>
+		</dependency>
 	</dependencies>
 </project>

@@ -24,6 +24,7 @@ public class StreamTest {
 		List<String> word = Arrays.asList("a","b","c");
 		List<String> ls = word.stream().map(String::toUpperCase).collect(Collectors.toList());
 		ls.forEach(System.out::println);
+		
 	}
 
 }
