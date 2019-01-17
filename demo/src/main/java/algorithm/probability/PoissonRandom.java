@@ -7,7 +7,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-
+/**
+ * 产生泊松分布随机数
+ * @author h15039
+ *
+ */
 public class PoissonRandom {
 	private int lamba;
 	Random random ;

@@ -33,7 +33,7 @@ public class CriteriaTest {
 	}
 	
 	/**
-	 * Criteria µÄÓÃ·¨
+	 * Criteria çš„ç”¨æ³•
 	 */
 	public static void criteriaTest() {
 		Session session = HibernateUtils.getSession();
@@ -48,7 +48,7 @@ public class CriteriaTest {
 	}
 	
 	/**
-	 * detachedCriteriaµÄÓÃ·¨
+	 * detachedCriteriaçš„ç”¨æ³•
 	 */
 	public static void detachedTest() {
 		DetachedCriteria detachedCriteria = HibernateUtils.getDetachedCriteria("com.h3c.base.models.User");
@@ -65,7 +65,7 @@ public class CriteriaTest {
 	}
 	
 	/**
-	 * detachedCriteria ²»Ê¹ÓÃhibernateTamplateµÄÓÃ·¨
+	 * detachedCriteria ä¸ä½¿ç”¨hibernateTamplateçš„ç”¨æ³•
 	 */
 	public static void detatchedWithoutHibernateTamplate() {
 		DetachedCriteria detachedCriteria = HibernateUtils.getDetachedCriteria("com.h3c.base.models.User");
@@ -84,8 +84,8 @@ public class CriteriaTest {
 	}
 	
 	/**
-	 * hibernate 5.0Ö®ºó@DeprecatedÁËCriteriaµÄÓÃ·¨¶øÍÆ¼öÊ¹ÓÃJPA¹æ·¶µÄCriteriaQuery
-	 * ¸Ã·½·¨ÎªCriteriaQueryµÄÓÃ·¨
+	 * hibernate 5.0ä¹‹å@Deprecatedäº†Criteriaçš„ç”¨æ³•è€Œæ¨èä½¿ç”¨JPAè§„èŒƒçš„CriteriaQuery
+	 * è¯¥æ–¹æ³•ä¸ºCriteriaQueryçš„ç”¨æ³•
 	 */
 	public static void testCriteriaQuery() {
 		Session session = HibernateUtils.getSession();
