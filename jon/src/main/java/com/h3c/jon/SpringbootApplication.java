@@ -1,4 +1,4 @@
-package top.yansite.springboot;
+package com.h3c.jon;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
