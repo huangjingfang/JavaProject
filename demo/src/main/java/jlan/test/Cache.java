@@ -98,7 +98,7 @@ public class Cache {
 	public <T> T getNext(Map<T, Integer> map,List<T> list) {
 		Iterator<T> iterator = map.keySet().iterator();
 		int max = 0;
-		T selected = null;
+	T selected = null;
 		while(iterator.hasNext()) {
 			T key = iterator.next();
 			if(!list.contains(key)) {
