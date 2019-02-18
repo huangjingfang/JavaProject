@@ -1,5 +1,8 @@
 package jlan.test.statics;
 
+import java.util.PriorityQueue;
+import java.util.Queue;
+
 public class Static {
 
 	public static void main(String[] args) {
