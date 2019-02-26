@@ -1,10 +1,7 @@
 package tools.flexmark;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -14,18 +11,13 @@ import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 
-import javax.annotation.processing.Filer;
-
 import org.apache.commons.io.IOUtils;
 import org.jsoup.Jsoup;
 import org.w3c.dom.Document;
 
-import com.alibaba.druid.filter.encoding.CharsetConvert;
 import com.openhtmltopdf.DOMBuilder;
 import com.openhtmltopdf.bidi.support.ICUBidiReorderer;
 import com.openhtmltopdf.bidi.support.ICUBidiSplitter;
-import com.openhtmltopdf.extend.FSSupplier;
-import com.openhtmltopdf.outputdevice.helper.BaseRendererBuilder.FontStyle;
 import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
 import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughExtension;
 import com.vladsch.flexmark.ext.tables.TablesExtension;
