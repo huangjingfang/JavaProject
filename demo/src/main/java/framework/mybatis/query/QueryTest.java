@@ -2,6 +2,7 @@ package framework.mybatis.query;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -27,6 +28,8 @@ public class QueryTest {
 		
 		User user = mapper.selectByName("eanxa");
 		System.out.println(new Gson().toJson(user));
+		List<User> list = mapper.selectAll();
+		System.out.println(new Gson().toJson(list));
 	}
 
 }
