@@ -7,3 +7,5 @@
 该部分主要是Java Web的代码例子，主要包括Spring，Hibernate，Spring MVC等。后续补充Spring boot相关
 ##### vue 
 该部分主要是使用前段框架vue.js写的html页面的例子
+##### Go
+博主换工作了，马上就要去新公司啦。但是新公司的主要开发语言是Go和Python，所以在本仓库将会更新Go和Python的相关代码例子。感谢大家的支持~
