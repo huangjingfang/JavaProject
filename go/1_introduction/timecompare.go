@@ -2,12 +2,12 @@ package main
 
 import (
 	"../util"
-	"fmt"
 )
 func main() {
-	start,stop := util.Timecompare(iterator);
-	fmt.Println(start)
-	fmt.Println(stop)
+	// start,stop := util.Timecompare(iterator);
+	// fmt.Println(start)
+	// fmt.Println(stop)
+	util.Log(iterator)
 }
 
 func iterator(){
